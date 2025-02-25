@@ -19,7 +19,8 @@
     <h1>Recipe Library</h1>
   </header>
 
-
+  <!-- Ändra så varje button har samma första klass men olika 
+   andra klass så att vi bara behöver en eventlistener? -->
   <section class="filter-group">
 
     <div class="filter-container">
@@ -36,10 +37,19 @@
     <div class="sort-container">
       <h3 class="small-head">Sort by cooking time</h3>
       <div class="sort-buttons">
-        <button class="sort-btn">Under 15 min</button>
-        <button class="sort-btn">15-30 min</button>
-        <button class="sort-btn">30-60 min</button>
-        <button class="sort-btn">Over 60 min</button>
+        <button id="15">Under 15 min</button>
+        <button
+          id="30"
+          class="sort-btn"
+        >15-30 min</button>
+        <button
+          id="60"
+          class="sort-btn"
+        >30-60 min</button>
+        <button
+          id=">60"
+          class="sort-btn"
+        >Over 60 min</button>
       </div>
     </div>
 
@@ -48,9 +58,15 @@
 
 
   <main class="recipe-container">
-    <section class="temp-card">
-      <h2 class="small-head">Temporary comtanier for </h2>
+    <section class="recipe-card">
+      <h2 class="small-head">Temporary placeholder for filtering/sorting </h2>
+      <section
+        id="message"
+        class="message"
+      >
 
+
+      </section>
     </section>
 
     <article class="recipe-card">

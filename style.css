@@ -34,7 +34,8 @@ h1 {
   padding: 10px;
 }
 
-.filter-buttons, .sort-buttons {
+.filter-buttons,
+.sort-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -65,7 +66,7 @@ h1 {
 /* vänta med denna till senare */
 .filter-btn:active {
   background: #0018A4;
-} 
+}
 
 .recipe-container {
   display: flex;
@@ -76,8 +77,7 @@ h1 {
 
 
 
-.recipe-card,
-.temp-card {
+.recipe-card {
   background: white;
   border: 2px solid white;
   border-radius: 12px;
@@ -91,21 +91,23 @@ h1 {
   object-fit: cover;
   border-radius: 12px;
 }
+
 .recipe-card ul {
   list-style: none;
   padding: 0;
 }
 
 @media (min-width: 629px) {
-  
+
   .filter-group {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    
+
   }
 
-  .filter-buttons, .sort-buttons {
+  .filter-buttons,
+  .sort-buttons {
     padding: 10px 0;
   }
 

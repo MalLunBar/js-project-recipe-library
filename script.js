@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Document is ready!');
+  const messageBox = document.getElementById('message');
+
+  const getClickedButton = () => {
+    messageBox.innerHTML = `You clicked on ${clickedButton.innerHTML}`;
+  };
+
+
+
 
 
 
