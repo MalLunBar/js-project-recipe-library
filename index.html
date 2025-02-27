@@ -22,52 +22,81 @@
   <!-- Ändra så varje button har samma första klass men olika 
    andra klass så att vi bara behöver en eventlistener? -->
   <section class="filter-group">
-
     <div class="filter-container">
       <h3 class="small-head">Filter on Diets</h3>
-      <div class="filter-buttons">
-        <button
+      <div class="filter-options">
+        <input
+          type="checkbox"
           id="all"
-          class="filter-btn active"
-        >All</button>
-        <button
+          class="filter-checkbox"
+          checked
+        >
+        <label for="all">All</label>
+
+        <input
+          type="checkbox"
           id="vegan"
-          class="filter-btn"
-        >Vegan</button>
-        <button
+          class="filter-checkbox"
+        >
+        <label for="vegan">Vegan</label>
+
+        <input
+          type="checkbox"
           id="vegetarian"
-          class="filter-btn"
-        >Vegetarian</button>
-        <button
+          class="filter-checkbox"
+        >
+        <label for="vegetarian">Vegetarian</label>
+
+        <input
+          type="checkbox"
           id="glutenfree"
-          class="filter-btn"
-        >Gluten-free</button>
-        <button
+          class="filter-checkbox"
+        >
+        <label for="glutenfree">Gluten-free</label>
+
+        <input
+          type="checkbox"
           id="dairyfree"
-          class="filter-btn"
-        >Dairy-free</button>
+          class="filter-checkbox"
+        >
+        <label for="dairyfree">Dairy-free</label>
       </div>
     </div>
 
     <div class="sort-container">
       <h3 class="small-head">Sort by cooking time</h3>
-      <div class="sort-buttons">
-        <button
+      <div class="sort-options">
+        <input
+          type="radio"
           id="15"
-          class="sort-btn"
-        >Under 15 min</button>
-        <button
+          name="sort"
+          class="sort-radio"
+        >
+        <label for="15">Under 15 min</label>
+
+        <input
+          type="radio"
           id="30"
-          class="sort-btn"
-        >15-30 min</button>
-        <button
+          name="sort"
+          class="sort-radio"
+        >
+        <label for="30">15-30 min</label>
+
+        <input
+          type="radio"
           id="60"
-          class="sort-btn"
-        >30-60 min</button>
-        <button
+          name="sort"
+          class="sort-radio"
+        >
+        <label for="60">30-60 min</label>
+
+        <input
+          type="radio"
           id=">60"
-          class="sort-btn"
-        >Over 60 min</button>
+          name="sort"
+          class="sort-radio"
+        >
+        <label for=">60">Over 60 min</label>
       </div>
     </div>
 

@@ -25,52 +25,63 @@ h1 {
 
 }
 
-.filter-container,
-.sort-container {
+.filter-options,
+.sort-options {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 10px;
-}
-
-.filter-buttons,
-.sort-buttons {
-  display: flex;
-  flex-wrap: wrap;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
-.filter-btn,
-.sort-btn {
-  border: 2px solid #CCFFE2;
-  border-radius: 50px;
-  background: #CCFFE2;
+.filter-options label,
+.sort-options label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: auto;
   height: auto;
   padding: 6px 12px;
+  border: 2px solid #CCFFE2;
+  border-radius: 30px;
+  background-color: #CCFFE2;
+  cursor: pointer;
+  font-size: 16px;
   color: #0018A4;
   font-weight: 500;
+  user-select: none;
 }
 
-.sort-btn {
-  background: #FFECEA;
+.sort-options label {
+  background-color: #FFECEA;
   border: 2px solid #FFECEA;
 }
 
-.filter-btn:hover,
-.sort-btn:hover,
-.recipe-card:hover {
-  border: 2px solid #0018A4;
+.filter-options label:hover,
+.sort-options label:hover {
+  border: 2px solid #0018A4
 }
 
-.active {
-  background: #0018A4;
+.sort-options label:hover {
   color: white;
+  background-color: #FF6589;
+}
+
+
+
+/* Hide the actual checkboxes */
+.filter-options input[type="checkbox"],
+.sort-options input[type="radio"] {
+  display: none;
+}
+
+/* Active (Checked) State */
+.filter-options input[type="checkbox"]:checked+label {
+  background-color: #0018A4;
   border: 2px solid #0018A4;
+  color: white;
 }
 
 .recipe-container {
+  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -79,7 +90,7 @@ h1 {
 
 .temp {
   max-width: 300px;
-  ;
+
 }
 
 .recipe-card {
