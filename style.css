@@ -80,6 +80,12 @@ h1 {
   color: white;
 }
 
+.sort-options input[type="radio"]:checked+label {
+  background-color: #FF6589;
+  border: 2px solid #FF6589;
+  color: white;
+}
+
 .recipe-container {
   margin-top: 15px;
   display: flex;
@@ -133,10 +139,10 @@ h1 {
     max-width: 295px;
   }
 
-  .filter-buttons,
+  /* .filter-buttons,
   .sort-buttons {
     padding: 10px 0;
-  }
+  } */
 
   .small-head {
     min-width: 177px;
