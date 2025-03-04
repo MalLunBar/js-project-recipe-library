@@ -4,9 +4,6 @@ const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
 
 
-
-
-
 const printMessage = (param) => {
   let button = param.id
   console.log(button)
