@@ -2,7 +2,7 @@ const recipes = [
   {
     id: 1,
     title: "Vegan Lentil Soup",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 30,
     servings: 4,
     sourceUrl: "https://example.com/vegan-lentil-soup",
@@ -26,7 +26,7 @@ const recipes = [
   {
     id: 2,
     title: "Vegetarian Pesto Pasta",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 25,
     servings: 2,
     sourceUrl: "https://example.com/vegetarian-pesto-pasta",
@@ -48,7 +48,7 @@ const recipes = [
   {
     id: 3,
     title: "Gluten-Free Chicken Stir-Fry",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 20,
     servings: 3,
     sourceUrl: "https://example.com/gluten-free-chicken-stir-fry",
@@ -74,7 +74,7 @@ const recipes = [
   {
     id: 4,
     title: "Dairy-Free Tacos",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 15,
     servings: 2,
     sourceUrl: "https://example.com/dairy-free-tacos",
@@ -94,7 +94,7 @@ const recipes = [
   {
     id: 5,
     title: "Middle Eastern Hummus",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 10,
     servings: 4,
     sourceUrl: "https://example.com/middle-eastern-hummus",
@@ -113,7 +113,7 @@ const recipes = [
   {
     id: 6,
     title: "Quick Avocado Toast",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 5,
     servings: 1,
     sourceUrl: "https://example.com/quick-avocado-toast",
@@ -131,7 +131,7 @@ const recipes = [
   {
     id: 7,
     title: "Beef Stew",
-    image: "./chicken.webp",
+    image: "images/focaccia.webp",
     readyInMinutes: 90,
     servings: 5,
     sourceUrl: "https://example.com/beef-stew",
