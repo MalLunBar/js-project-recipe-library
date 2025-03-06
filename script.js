@@ -5,14 +5,7 @@ const sortButtons = document.querySelectorAll('.sort-radio')
 
 //Test
 const allCheckbox = document.getElementById('all');
-const veganBtn = document.getElementById('vegan')
-const vegetarianBtn = document.getElementById('vegetarian')
-const glutenFreeBtn = document.getElementById('gluten-free')
-const dairyFreeBtn = document.getElementById('dairy-free')
 
-
-
-// recipies part --------------------
 
 // Function that renders through the ingredients array and creates a list of ingredients
 const renderIngredients = (ingredients) => {
@@ -52,67 +45,39 @@ loadRecipes(recipes)
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
-const getBtnId = filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    filterRecipes(button.id);
-    console.log(button.id);
-  });
-})
-
-
-
-//Uncheck the all button
-
+// Combine the event listeners into one to avoid redundancy
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
+    filterRecipes(button.id)
+    console.log(button.id)
 
     if (button.id === 'all') {
       // If "All" is clicked, uncheck all other checkboxes
       filterButtons.forEach(btn => {
         if (btn.id !== 'all') {
-          btn.checked = false;
+          btn.checked = false
         }
-      });
+      })
     } else {
       // If any other checkbox is clicked, uncheck "All"
-      allCheckbox.checked = false;
+      allCheckbox.checked = false
 
       // Check if no other checkboxes are checked
-      const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all');
+      const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all')
 
       // If none are checked, check "All" again
       if (!anyChecked) {
-        allCheckbox.checked = true;
+        allCheckbox.checked = true
       }
     }
-
-  });
-});
-
-
-// const allCheckbox = document.getElementById('all');
-
-// filterButtons.forEach(button => {
-//   button.addEventListener('click', () => {
-//     if (button.id !== 'all') {
-//       allCheckbox.checked = !Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all');
-//     }
-//     if (button.id === 'all') {
-//       filterButtons.forEach(btn => {
-//         if (btn.id !== 'all') {
-//           btn.checked = false;
-//         }
-//       });
-//     }
-//   });
-// });
+  })
+})
 
 
-// 1. Create a function that creates the recipe cards when the page loads
-// 2. Create a function that renders through the ingredients array and creates a list of ingredients
-// 3. funtion that unchecks the all-box when another box is checked
+
+
+
 // 4. function with ternery operator that checks sorts through the recipes based on the sort-buttons
-// 5.
-// 6.
+
 
 
