@@ -3,56 +3,59 @@ const messageBox = document.getElementById('message')
 const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
 
+//Test
+const veganBtn = document.getElementById('vegan')
 
-const printMessage = (param) => {
-  let button = param.id
-  console.log(button)
-  switch (button) {
-    case 'all':
-      messageBox.innerHTML = 'Youre hungry for everything!'
-      break
-    case 'vegan':
-      messageBox.innerHTML = 'Wow you really care about the enviroment, nice!'
-      break
-    case 'vegetarian':
-      messageBox.innerHTML = 'Cool bro, you like to eat healthy!'
-      break
-    case 'glutenfree':
-      messageBox.innerHTML = 'So I guess you REALLY know what tummy aches feel like!'
-      break
-    case 'dairyfree':
-      messageBox.innerHTML = 'You must be a cat person!'
-      break
-    case '15':
-      messageBox.innerHTML = 'Oh so youre in a hurry?!'
-      break
-    case '30':
-      messageBox.innerHTML = 'Youre just like everyone else!'
-      break
-    case '60':
-      messageBox.innerHTML = 'Hope youre not too hungry already!'
-      break
-    case '>60':
-      messageBox.innerHTML = 'Wow, you really like to take your time!'
-      break
-    default:
-      messageBox.innerHTML = 'Please make your choice!'
-  }
-}
 
-sortButtons.forEach((button) => {
-  button.addEventListener('click', (event) => {
+// const printMessage = (param) => {
+//   let button = param.id
+//   console.log(button)
+//   switch (button) {
+//     case 'all':
+//       messageBox.innerHTML = 'Youre hungry for everything!'
+//       break
+//     case 'vegan':
+//       messageBox.innerHTML = 'Wow you really care about the enviroment, nice!'
+//       break
+//     case 'vegetarian':
+//       messageBox.innerHTML = 'Cool bro, you like to eat healthy!'
+//       break
+//     case 'glutenfree':
+//       messageBox.innerHTML = 'So I guess you REALLY know what tummy aches feel like!'
+//       break
+//     case 'dairyfree':
+//       messageBox.innerHTML = 'You must be a cat person!'
+//       break
+//     case '15':
+//       messageBox.innerHTML = 'Oh so youre in a hurry?!'
+//       break
+//     case '30':
+//       messageBox.innerHTML = 'Youre just like everyone else!'
+//       break
+//     case '60':
+//       messageBox.innerHTML = 'Hope youre not too hungry already!'
+//       break
+//     case '>60':
+//       messageBox.innerHTML = 'Wow, you really like to take your time!'
+//       break
+//     default:
+//       messageBox.innerHTML = 'Please make your choice!'
+//   }
+// }
 
-    printMessage(button)
-  })
-})
+// sortButtons.forEach((button) => {
+//   button.addEventListener('click', (event) => {
 
-filterButtons.forEach((button) => {
-  button.addEventListener('click', (event) => {
+//     printMessage(button)
+//   })
+// })
 
-    printMessage(button)
-  })
-})
+// filterButtons.forEach((button) => {
+//   button.addEventListener('click', (event) => {
+
+//     printMessage(button)
+//   })
+// })
 
 
 // recipies part --------------------
@@ -65,8 +68,9 @@ const renderIngredients = (ingredients) => {
 //Function that creates the recipe cards when the page loads
 const recipeContainer = document.getElementById('recipe-container')
 
-const loadRecipes = () => {
-  recipes.forEach((recipe) => {
+const loadRecipes = (array) => {
+  recipeContainer.innerHTML = ''
+  array.forEach((recipe) => {
     recipeContainer.innerHTML += `<article class="recipe-card">
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
@@ -75,37 +79,50 @@ const loadRecipes = () => {
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients</strong> ${renderIngredients(recipe.ingredients)}</p>
-    
     </article>`
-
   })
 }
 
+const filterRecipes = () => {
+  const filteredArray = recipes.filter(recipe =>
+    recipe.diets.includes("vegan"))
+  console.log('these are vegan recipes: ', filteredArray)
 
-{/* <article id="recipe-card" class="recipe-card">
-<img
-  src="images/focaccia.webp"
-  alt="Cheat's cheesy Focaccia"
->
-<h3>Cheat's cheesy Focaccia</h3>
-<div class="border-top-bottom">
-  <p><strong>Cuisine:</strong> Italian</p>
-  <p><strong>Time:</strong> 40 minutes</p>
-</div>
-<p><strong>Ingredients</strong></p>
-<ul>
-  <li>500g pack bread mix</li>
-  <li>2 tbsp. olive oil</li>
-  <li>25g parmesan, grated</li>
-  <li>75g dolcelatte cheese</li>
-</ul>
-</article> */}
-loadRecipes()
+  loadRecipes(filteredArray)
+
+}
+
+
+loadRecipes(recipes)
+
+
+veganBtn.addEventListener('click', filterRecipes)
+
+
+
+
+
+
+
+//Uncheck the all button
+const allCheckbox = document.getElementById('all');
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    if (button.id !== 'all' && allCheckbox.checked) {
+      allCheckbox.checked = false;
+    } else {
+      allCheckbox.checked = true;
+    }
+  });
+});
+
 
 // 1. Create a function that creates the recipe cards when the page loads
-// 2.
-// 3.
-// 4.
+// 2. Create a function that renders through the ingredients array and creates a list of ingredients
+// 3. funtion that unchecks the all-box when another box is checked
+// 4. function with ternery operator that checks sorts through the recipes based on the sort-buttons
 // 5.
 // 6.
+
 
