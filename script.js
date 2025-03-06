@@ -4,58 +4,12 @@ const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
 
 //Test
+const allCheckbox = document.getElementById('all');
 const veganBtn = document.getElementById('vegan')
+const vegetarianBtn = document.getElementById('vegetarian')
+const glutenFreeBtn = document.getElementById('gluten-free')
+const dairyFreeBtn = document.getElementById('dairy-free')
 
-
-// const printMessage = (param) => {
-//   let button = param.id
-//   console.log(button)
-//   switch (button) {
-//     case 'all':
-//       messageBox.innerHTML = 'Youre hungry for everything!'
-//       break
-//     case 'vegan':
-//       messageBox.innerHTML = 'Wow you really care about the enviroment, nice!'
-//       break
-//     case 'vegetarian':
-//       messageBox.innerHTML = 'Cool bro, you like to eat healthy!'
-//       break
-//     case 'glutenfree':
-//       messageBox.innerHTML = 'So I guess you REALLY know what tummy aches feel like!'
-//       break
-//     case 'dairyfree':
-//       messageBox.innerHTML = 'You must be a cat person!'
-//       break
-//     case '15':
-//       messageBox.innerHTML = 'Oh so youre in a hurry?!'
-//       break
-//     case '30':
-//       messageBox.innerHTML = 'Youre just like everyone else!'
-//       break
-//     case '60':
-//       messageBox.innerHTML = 'Hope youre not too hungry already!'
-//       break
-//     case '>60':
-//       messageBox.innerHTML = 'Wow, you really like to take your time!'
-//       break
-//     default:
-//       messageBox.innerHTML = 'Please make your choice!'
-//   }
-// }
-
-// sortButtons.forEach((button) => {
-//   button.addEventListener('click', (event) => {
-
-//     printMessage(button)
-//   })
-// })
-
-// filterButtons.forEach((button) => {
-//   button.addEventListener('click', (event) => {
-
-//     printMessage(button)
-//   })
-// })
 
 
 // recipies part --------------------
@@ -83,10 +37,11 @@ const loadRecipes = (array) => {
   })
 }
 
-const filterRecipes = () => {
+//Takes in a value that is that we get from the eventlisteners on the buttons
+const filterRecipes = (value) => {
   const filteredArray = recipes.filter(recipe =>
-    recipe.diets.includes("vegan"))
-  console.log('these are vegan recipes: ', filteredArray)
+    recipe.diets.includes(value))
+
 
   loadRecipes(filteredArray)
 
@@ -95,27 +50,62 @@ const filterRecipes = () => {
 
 loadRecipes(recipes)
 
+//Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
-veganBtn.addEventListener('click', filterRecipes)
-
-
-
-
+const getBtnId = filterButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    filterRecipes(button.id);
+    console.log(button.id);
+  });
+})
 
 
 
 //Uncheck the all button
-const allCheckbox = document.getElementById('all');
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
-    if (button.id !== 'all' && allCheckbox.checked) {
-      allCheckbox.checked = false;
+
+    if (button.id === 'all') {
+      // If "All" is clicked, uncheck all other checkboxes
+      filterButtons.forEach(btn => {
+        if (btn.id !== 'all') {
+          btn.checked = false;
+        }
+      });
     } else {
-      allCheckbox.checked = true;
+      // If any other checkbox is clicked, uncheck "All"
+      allCheckbox.checked = false;
+
+      // Check if no other checkboxes are checked
+      const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all');
+
+      // If none are checked, check "All" again
+      if (!anyChecked) {
+        allCheckbox.checked = true;
+      }
     }
+
   });
 });
+
+
+// const allCheckbox = document.getElementById('all');
+
+// filterButtons.forEach(button => {
+//   button.addEventListener('click', () => {
+//     if (button.id !== 'all') {
+//       allCheckbox.checked = !Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all');
+//     }
+//     if (button.id === 'all') {
+//       filterButtons.forEach(btn => {
+//         if (btn.id !== 'all') {
+//           btn.checked = false;
+//         }
+//       });
+//     }
+//   });
+// });
 
 
 // 1. Create a function that creates the recipe cards when the page loads
