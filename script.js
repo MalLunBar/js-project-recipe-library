@@ -2,6 +2,7 @@
 const messageBox = document.getElementById('message')
 const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
+let workingArray = []
 
 //Test
 const allCheckbox = document.getElementById('all');
@@ -22,7 +23,7 @@ const loadRecipes = (array) => {
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet:</strong> ${recipe.diets}</p>
+    <p><strong>Diet: </strong> ${recipe.diets}</p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients</strong> ${renderIngredients(recipe.ingredients)}</p>
@@ -31,13 +32,40 @@ const loadRecipes = (array) => {
 }
 
 //Takes in a value that is that we get from the eventlisteners on the buttons
-const filterRecipes = (value) => {
-  const filteredArray = recipes.filter(recipe =>
-    recipe.diets.includes(value))
-
+const filterRecipes = (diets) => {
+  const filteredArray = recipes.filter(recipe => diets.some(diet => recipe.diets.includes(diet))
+  )
 
   loadRecipes(filteredArray)
+  console.log(filteredArray)
+}
 
+
+// Handle added button logic
+const buttonMagic = (id) => {
+  if (id === 'all') {
+    // If "All" is clicked, uncheck all other checkboxes
+    filterButtons.forEach(btn => {
+      if (btn.id !== 'all') {
+        btn.checked = false
+      }
+    })
+  } else {// any other button was clicked
+    // Check if any (non-all) boxes are checked
+    const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all')
+
+    if (anyChecked) {
+      allCheckbox.checked = false
+
+    } else { // no filters active, check the "all-box"
+      allCheckbox.checked = true
+    }
+  }
+  // Ensure that "All" is checked if nothing else is 
+  const anyCheckedNew = Array.from(filterButtons).some(btn => btn.checked)
+  if (!anyCheckedNew) {
+    allCheckbox.checked = true
+  }
 }
 
 
@@ -45,30 +73,32 @@ loadRecipes(recipes)
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
-// Combine the event listeners into one to avoid redundancy
+
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
-    filterRecipes(button.id)
-    console.log(button.id)
+    buttonMagic(button.id)
 
-    if (button.id === 'all') {
-      // If "All" is clicked, uncheck all other checkboxes
-      filterButtons.forEach(btn => {
-        if (btn.id !== 'all') {
-          btn.checked = false
-        }
-      })
-    } else {
-      // If any other checkbox is clicked, uncheck "All"
-      allCheckbox.checked = false
-
-      // Check if no other checkboxes are checked
-      const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all')
-
-      // If none are checked, check "All" again
-      if (!anyChecked) {
-        allCheckbox.checked = true
+    if (button.id !== "all") {
+      // add checked filter options to list 
+      if (button.checked && !workingArray.includes(button.id)) {
+        workingArray.push(button.id)
       }
+      // remove unchecked options from list
+      else if (!button.checked && workingArray.includes(button.id)) {
+        workingArray = workingArray.filter((btn) => btn !== button.id)
+      }
+
+      if (workingArray.length > 0) {
+        const filterActive = true
+        //filterRecipes(workingArray)
+      }
+      else {
+        loadRecipes(recipes)
+      }
+    } else {
+      // empty selection list when filters are cleared ("All" is clicked)
+      workingArray = []
+      loadRecipes(recipes)
     }
   })
 })
@@ -77,7 +107,10 @@ filterButtons.forEach(button => {
 
 
 
+
+
 // 4. function with ternery operator that checks sorts through the recipes based on the sort-buttons
 
 
+//Fråga om hur logiken funkar för att inte låta All-knabben bli unckecked när inget annat är checked. 
 
