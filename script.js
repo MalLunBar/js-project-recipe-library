@@ -70,6 +70,7 @@ const buttonMagic = (id) => {
 }
 
 loadRecipes(recipes)
+console.log(typeof(recipes[0]))
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
@@ -90,6 +91,7 @@ filterButtons.forEach(button => {
       if (workingArray.length > 0) {
         const filterActive = true
         filterRecipes(workingArray)
+        console.log('typ av workingarray-item ' + typeof (workingArray[0]))
       }
       else {
         loadRecipes(recipes)
@@ -103,9 +105,60 @@ filterButtons.forEach(button => {
 })
 
 
+const sortAscending = (array) => {
+  array.forEach((item) => {
+    return console.log("hej")
+  })
+  console.log("ascending klickad")
+  //gör en kopia på working arrayen ['vegan', 'vegetarian' osv] 
+  // for each item i arrayen 
+  // skapa variabel för 
+  // om objeket.diets === 'vegan' {sort på objektet }
+
+}
+
+const sortDecending = () => {
+  console.log("decending klickad")
+}
+
+sortButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    if (button.id === 'ascending') {
+      if (allCheckbox.checked) {
+        sortAscending(recipes)
+        console.log("skriver ut ascending på recipes")
+      } else {
+        sortAscending(workingArray)
+        console.log("skriver ut ascending workingarray")
+      }
+    } else {
+      if (allCheckbox.checked) {
+        sortDecending(recipes)
+        console.log("skriver ut descending på recipes")
+      } else {
+        sortDecending(workingArray)
+        console.log("skriver ut descending workingarray")
+      }
+
+
+    }
+
+  })
+})
+
+
+
+
+
+
 
 // 4. function with ternery operator that checks sorts through the recipes based on the sort-buttons
 
+//function med evenlistener på knapparna
+//om man clickar på ascending kör sortArray(knappens id)?
 
-//Fråga om hur logiken funkar för att inte låta All-knabben bli unckecked när inget annat är checked. 
+
+
+// VIKTIGT - borde använda mig av en array av object alltid istället för id/diets?
+
 
