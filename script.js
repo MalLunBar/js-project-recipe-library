@@ -31,6 +31,7 @@ const loadRecipes = (array) => {
   })
 }
 
+
 //Takes in a value that is that we get from the eventlisteners on the buttons
 const filterRecipes = (diets) => {
   const filteredArray = recipes.filter(recipe => diets.some(diet => recipe.diets.includes(diet))
@@ -68,11 +69,9 @@ const buttonMagic = (id) => {
   }
 }
 
-
 loadRecipes(recipes)
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
-
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -90,7 +89,7 @@ filterButtons.forEach(button => {
 
       if (workingArray.length > 0) {
         const filterActive = true
-        //filterRecipes(workingArray)
+        filterRecipes(workingArray)
       }
       else {
         loadRecipes(recipes)
@@ -102,10 +101,6 @@ filterButtons.forEach(button => {
     }
   })
 })
-
-
-
-
 
 
 
