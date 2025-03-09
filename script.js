@@ -2,7 +2,7 @@
 const messageBox = document.getElementById('message')
 const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
-let workingArray = []
+
 
 //Test
 const allCheckbox = document.getElementById('all');
@@ -33,16 +33,10 @@ const loadRecipes = (array) => {
 
 
 //Takes in a value that is that we get from the eventlisteners on the buttons
-const filterRecipes = (diets) => {
-  const filteredArray = recipes.filter(recipe => diets.some(diet => recipe.diets.includes(diet))
-  )
-
-  loadRecipes(filteredArray)
-  console.log(filteredArray)
-}
 
 
-// Handle added button logic
+
+// Handles the button logic, which one should be checked depending on what else is checked
 const buttonMagic = (id) => {
   if (id === 'all') {
     // If "All" is clicked, uncheck all other checkboxes
@@ -70,44 +64,51 @@ const buttonMagic = (id) => {
 }
 
 loadRecipes(recipes)
-console.log(typeof(recipes[0]))
+
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
+
+let activeFilters = []
+let workingArray = [...recipes]
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
     buttonMagic(button.id)
 
-    if (button.id !== "all") {
-      // add checked filter options to list 
-      if (button.checked && !workingArray.includes(button.id)) {
-        workingArray.push(button.id)
+    if (button.id !== 'all') {
+      if (button.checked) {
+        if (!activeFilters.includes(button.id)) {
+          activeFilters.push(button.id)
+        }
+      } else {
+        activeFilters = activeFilters.filter(filter => filter !== button.id)
       }
-      // remove unchecked options from list
-      else if (!button.checked && workingArray.includes(button.id)) {
-        workingArray = workingArray.filter((btn) => btn !== button.id)
+      //Om det finns nått i activeFilter betyder det att det är nått filter i listan som vi behöver filtrera på 
+      if (activeFilters.length > 0) {
+        workingArray = recipes.filter(recipe => activeFilters.every(filter => recipe.diets.includes(filter)))
+      } else {
+        workingArray = [...recipes]
       }
-
-      if (workingArray.length > 0) {
-        const filterActive = true
-        filterRecipes(workingArray)
-        console.log('typ av workingarray-item ' + typeof (workingArray[0]))
-      }
-      else {
-        loadRecipes(recipes)
-      }
+      loadRecipes(workingArray)
     } else {
-      // empty selection list when filters are cleared ("All" is clicked)
-      workingArray = []
+      //resets everything when "all" is clicked
+      activeFilters = []
       loadRecipes(recipes)
     }
   })
 })
 
 
+
+
+
+
+
+
+
 const sortAscending = (array) => {
   array.forEach((item) => {
-    return console.log("hej")
+
   })
   console.log("ascending klickad")
   //gör en kopia på working arrayen ['vegan', 'vegetarian' osv] 
@@ -118,7 +119,7 @@ const sortAscending = (array) => {
 }
 
 const sortDecending = () => {
-  console.log("decending klickad")
+  
 }
 
 sortButtons.forEach(button => {
@@ -126,18 +127,18 @@ sortButtons.forEach(button => {
     if (button.id === 'ascending') {
       if (allCheckbox.checked) {
         sortAscending(recipes)
-        console.log("skriver ut ascending på recipes")
+        
       } else {
         sortAscending(workingArray)
-        console.log("skriver ut ascending workingarray")
+        
       }
     } else {
       if (allCheckbox.checked) {
         sortDecending(recipes)
-        console.log("skriver ut descending på recipes")
+        
       } else {
         sortDecending(workingArray)
-        console.log("skriver ut descending workingarray")
+        
       }
 
 
