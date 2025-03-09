@@ -105,20 +105,21 @@ filterButtons.forEach(button => {
 
 
 const sortAscending = (array) => {
-  array.forEach((item) => {
+  array.sort((a, b) => (
+    a.readyInMinutes > b.readyInMinutes ? 1 : b.readyInMinutes > a.readyInMinutes ? -1 : 0
+  ))
+  loadRecipes(array)
+}
 
-  })
-  console.log("ascending klickad")
-  //gör en kopia på working arrayen ['vegan', 'vegetarian' osv] 
-  // for each item i arrayen 
-  // skapa variabel för 
-  // om objeket.diets === 'vegan' {sort på objektet }
+
+const sortDecending = (array) => {
+  array.sort((a, b) => (
+    b.readyInMinutes > a.readyInMinutes ? 1 : a.readyInMinutes > b.readyInMinutes ? -1 : 0
+  ))
+  loadRecipes(array)
 
 }
 
-const sortDecending = () => {
-
-}
 
 sortButtons.forEach(button => {
   button.addEventListener('click', () => {
