@@ -2,13 +2,15 @@
 const messageBox = document.getElementById('message')
 const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
+let activeFilters = []
+let workingArray = [...recipes]
 
 
 //Test
 const allCheckbox = document.getElementById('all');
 
 
-// Function that renders through the ingredients array and creates a list of ingredients
+// Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
 const renderIngredients = (ingredients) => {
   return `<ul>
   ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join('')}</ul>`
@@ -23,16 +25,13 @@ const loadRecipes = (array) => {
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet: </strong> ${recipe.diets}</p>
+    <p><strong>Diet: </strong> ${recipe.diets.join(" ")}</p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients</strong> ${renderIngredients(recipe.ingredients)}</p>
     </article>`
   })
 }
-
-
-//Takes in a value that is that we get from the eventlisteners on the buttons
 
 
 
@@ -68,8 +67,7 @@ loadRecipes(recipes)
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
-let activeFilters = []
-let workingArray = [...recipes]
+
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -119,7 +117,7 @@ const sortAscending = (array) => {
 }
 
 const sortDecending = () => {
-  
+
 }
 
 sortButtons.forEach(button => {
@@ -127,18 +125,18 @@ sortButtons.forEach(button => {
     if (button.id === 'ascending') {
       if (allCheckbox.checked) {
         sortAscending(recipes)
-        
+
       } else {
         sortAscending(workingArray)
-        
+
       }
     } else {
       if (allCheckbox.checked) {
         sortDecending(recipes)
-        
+
       } else {
         sortDecending(workingArray)
-        
+
       }
 
 
