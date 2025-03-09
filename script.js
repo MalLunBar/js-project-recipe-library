@@ -112,7 +112,7 @@ const sortAscending = (array) => {
 }
 
 
-const sortDecending = (array) => {
+const sortDescending = (array) => {
   array.sort((a, b) => (
     b.readyInMinutes > a.readyInMinutes ? 1 : a.readyInMinutes > b.readyInMinutes ? -1 : 0
   ))
@@ -133,10 +133,10 @@ sortButtons.forEach(button => {
       }
     } else {
       if (allCheckbox.checked) {
-        sortDecending(recipes)
+        sortDescending(recipes)
 
       } else {
-        sortDecending(workingArray)
+        sortDescending(workingArray)
 
       }
 
