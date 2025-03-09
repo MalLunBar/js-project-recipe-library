@@ -62,8 +62,6 @@ const buttonMagic = (id) => {
   }
 }
 
-loadRecipes(recipes)
-
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
@@ -95,14 +93,6 @@ filterButtons.forEach(button => {
     }
   })
 })
-
-
-
-
-
-
-
-
 
 const sortAscending = (array) => {
   array.sort((a, b) => (
@@ -146,19 +136,17 @@ sortButtons.forEach(button => {
   })
 })
 
+const randomRecipe = (array) => {
+
+}
+
+//Här börjar allt från att sidan laddas 
+loadRecipes(recipes)
 
 
 
-
-
-
-// 4. function with ternery operator that checks sorts through the recipes based on the sort-buttons
-
-//function med evenlistener på knapparna
-//om man clickar på ascending kör sortArray(knappens id)?
-
-
-
-// VIKTIGT - borde använda mig av en array av object alltid istället för id/diets?
-
-
+// const getRandomBreakfast = () => {
+//   // We want to get a random breakfast
+//   const randomIndex = Math.floor(Math.random() * breakfasts.length);
+//   answer.innerHTML = breakfasts[randomIndex];
+// };
