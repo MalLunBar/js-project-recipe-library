@@ -1,14 +1,11 @@
-
-const messageBox = document.getElementById('message')
-const filterButtons = document.querySelectorAll('filter-checkbox')
-const sortButtons = document.querySelectorAll('sort-radio')
+const filterButtons = document.querySelectorAll('.filter-checkbox')
+const sortButtons = document.querySelectorAll('.sort-radio')
 const lazyButton = document.getElementById('lazy')
+const allCheckbox = document.getElementById('all');
 let activeFilters = []
 let workingArray = [...recipes]
 
 
-//Test
-const allCheckbox = document.getElementById('all');
 
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
@@ -35,7 +32,7 @@ const loadRecipes = (array) => {
 }
 
 //Här börjar allt från att sidan laddas 
-loadRecipes(workingArray)
+loadRecipes(recipes)
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
@@ -110,7 +107,6 @@ const randomRecipe = () => {
 
 
 
-
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
 filterButtons.forEach(button => {
@@ -133,18 +129,6 @@ sortButtons.forEach(button => {
 
 lazyButton.addEventListener('click', randomRecipe)
 
-
-
-
-
-
-
-
-// const getRandomBreakfast = () => {
-//   // We want to get a random breakfast
-//   const randomIndex = Math.floor(Math.random() * breakfasts.length);
-//   answer.innerHTML = breakfasts[randomIndex];
-// };
 
 //Saker att ändra!! 
 /*
