@@ -36,7 +36,7 @@ const loadRecipes = (array) => {
 
 
 // Handles the button logic, which one should be checked depending on what else is checked
-const buttonMagic = (id) => {
+const updateButtons = (id) => {
   if (id === 'all') {
     // If "All" is clicked, uncheck all other checkboxes
     filterButtons.forEach(btn => {
@@ -65,34 +65,35 @@ const buttonMagic = (id) => {
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
-
-
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
-    buttonMagic(button.id)
-
-    if (button.id !== 'all') {
-      if (button.checked) {
-        if (!activeFilters.includes(button.id)) {
-          activeFilters.push(button.id)
-        }
-      } else {
-        activeFilters = activeFilters.filter(filter => filter !== button.id)
-      }
-      //Om det finns nått i activeFilter betyder det att det är nått filter i listan som vi behöver filtrera på 
-      if (activeFilters.length > 0) {
-        workingArray = recipes.filter(recipe => activeFilters.every(filter => recipe.diets.includes(filter)))
-      } else {
-        workingArray = [...recipes]
-      }
-      loadRecipes(workingArray)
-    } else {
-      //resets everything when "all" is clicked
-      activeFilters = []
-      loadRecipes(recipes)
-    }
+    updateButtons(button.id)
+    updateFilters(button)
   })
 })
+
+const updateFilters = (button) => {
+  if (button.id !== 'all') {
+    if (button.checked) {
+      if (!activeFilters.includes(button.id)) {
+        activeFilters.push(button.id)
+      }
+    } else {
+      activeFilters = activeFilters.filter(filter => filter !== button.id)
+    }
+    //Om det finns nått i activeFilter betyder det att det är nått filter i listan som vi behöver filtrera på 
+    if (activeFilters.length > 0) {
+      workingArray = recipes.filter(recipe => activeFilters.every(filter => recipe.diets.includes(filter)))
+    } else {
+      workingArray = [...recipes]
+    }
+    loadRecipes(workingArray)
+  } else {
+    //resets everything when "all" is clicked
+    activeFilters = []
+    loadRecipes(recipes)
+  }
+}
 
 const sortAscending = (array) => {
   array.sort((a, b) => (
