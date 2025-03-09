@@ -31,16 +31,16 @@ h1 {
 .lazy-container {
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .filter-options,
-.sort-options, 
+.sort-options,
 .lazy-option {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  
+
 }
 
 .filter-options label,
@@ -62,8 +62,10 @@ h1 {
   user-select: none;
 }
 
-.lazy-option label{
-  max-width: 150px;
+.lazy-option label {
+  
+  background-color: #d7dbfc;
+  border: 2px solid #d7dbfc;
 }
 
 .sort-options label {
@@ -82,12 +84,16 @@ h1 {
   background-color: #FF6589;
 }
 
+.lazy-option label:hover {
+  background-color: #aab3fc;
+}
+
 
 
 /* Hide the actual checkboxes */
 .filter-options input[type="checkbox"],
 .sort-options input[type="radio"],
-.lazy-option input[type="button"]{
+.lazy-option input[type="button"] {
   display: none;
 }
 
@@ -146,27 +152,28 @@ h1 {
 
 @media (min-width: 650px) {
 
-body{
-  padding: 0 2%;
-}
+  body {
+    padding: 0 2%;
+  }
 
   .filter-group {
     flex-direction: row;
     gap: 10px;
-    
-    
+
+
   }
 
-.filter-container,
-.sort-container,
-.lazy-container {
-  min-width: 220px;
-  
-}
+  .filter-container,
+  .sort-container,
+  .lazy-container {
+    min-width: 220px;
+    
 
-.sort-options{
-  /* flex-direction: row;*/
-} 
+  }
+
+  .sort-options {
+    /* flex-direction: row;*/
+  }
 
 
   .small-head {
@@ -175,7 +182,7 @@ body{
 }
 
 @media (min-width: 750px) {
-  .filter-group{
-    
+  .filter-group {
+    justify-content: center;
   }
 }

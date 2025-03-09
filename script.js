@@ -1,7 +1,8 @@
 
 const messageBox = document.getElementById('message')
-const filterButtons = document.querySelectorAll('.filter-checkbox')
-const sortButtons = document.querySelectorAll('.sort-radio')
+const filterButtons = document.querySelectorAll('filter-checkbox')
+const sortButtons = document.querySelectorAll('sort-radio')
+const lazyButton = document.getElementById('lazy')
 let activeFilters = []
 let workingArray = [...recipes]
 
@@ -33,7 +34,8 @@ const loadRecipes = (array) => {
   })
 }
 
-
+//Här börjar allt från att sidan laddas 
+loadRecipes(workingArray)
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
@@ -61,16 +63,6 @@ const updateButtons = (id) => {
     allCheckbox.checked = true
   }
 }
-
-
-//Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
-
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    updateButtons(button.id)
-    updateFilters(button)
-  })
-})
 
 const updateFilters = (button) => {
   if (button.id !== 'all') {
@@ -102,47 +94,49 @@ const sortAscending = (array) => {
   loadRecipes(array)
 }
 
-
 const sortDescending = (array) => {
   array.sort((a, b) => (
     b.readyInMinutes > a.readyInMinutes ? 1 : a.readyInMinutes > b.readyInMinutes ? -1 : 0
   ))
   loadRecipes(array)
-
 }
+
+const randomRecipe = () => {
+  const randomIndex = Math.floor(Math.random() * workingArray.length)
+  workingArray = [workingArray[randomIndex]]
+  loadRecipes(workingArray)
+  workingArray = [...recipes]
+}
+
+
+
+
+//Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
+
+filterButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    updateButtons(button.id)
+    updateFilters(button)
+  })
+})
 
 
 sortButtons.forEach(button => {
   button.addEventListener('click', () => {
     if (button.id === 'ascending') {
-      if (allCheckbox.checked) {
-        sortAscending(recipes)
-
-      } else {
-        sortAscending(workingArray)
-
-      }
+      sortAscending(workingArray)
     } else {
-      if (allCheckbox.checked) {
-        sortDescending(recipes)
-
-      } else {
-        sortDescending(workingArray)
-
-      }
-
-
+      sortDescending(workingArray)
     }
-
   })
 })
 
-const randomRecipe = (array) => {
+lazyButton.addEventListener('click', randomRecipe)
 
-}
 
-//Här börjar allt från att sidan laddas 
-loadRecipes(recipes)
+
+
+
 
 
 
@@ -151,3 +145,8 @@ loadRecipes(recipes)
 //   const randomIndex = Math.floor(Math.random() * breakfasts.length);
 //   answer.innerHTML = breakfasts[randomIndex];
 // };
+
+//Saker att ändra!! 
+/*
+1. Visst behöver jag aldrig skriva ut function(recipes) eftersom workingArray alltid är en kopia när den inte är filtrerad? 
+2. ändra namn på allCheckbox och använd den överallt där det behöver*/ 
