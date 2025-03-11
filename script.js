@@ -2,10 +2,19 @@ const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
 const lazyButton = document.getElementById('lazy')
 const allCheckbox = document.getElementById('all');
+//Arrays to use in the Filter function 
 let activeFilters = []
+//With dots so recipes array doesn't get modified 
 let workingArray = [...recipes]
+let exampleArray = []
 
+const url = ""
 
+const fetchData = async () => {
+  const response = await fetch(URL)
+  const data = await response.json()
+  exampleArray = data.recipes
+}
 
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
@@ -16,9 +25,9 @@ const renderIngredients = (ingredients) => {
 //Function that creates the recipe cards when the page loads
 const recipeContainer = document.getElementById('recipe-container')
 
-const loadRecipes = (array) => {
+const loadRecipes = (obj) => {
   recipeContainer.innerHTML = ''
-  array.forEach((recipe) => {
+  obj.recipes.forEach((recipe) => {
     recipeContainer.innerHTML += `<article class="recipe-card">
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
@@ -32,7 +41,7 @@ const loadRecipes = (array) => {
 }
 
 //Här börjar allt från att sidan laddas 
-loadRecipes(recipes)
+loadRecipes(exampleResponse)
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
