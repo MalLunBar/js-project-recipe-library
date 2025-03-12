@@ -44,7 +44,7 @@ const fetchData = async () => {
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
 const renderIngredients = () {
-  
+
 }
 
 // const renderIngredients = (ingredients) => {
