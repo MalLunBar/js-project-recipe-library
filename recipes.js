@@ -990,7 +990,7 @@ const exampleResponse = {
       "readyInMinutes": 45,
       "servings": 4,
       "sourceUrl": "http://www.foodista.com/recipe/4VZ36NKT/cajun-potato-wedges",
-      "vegetarian": true,
+      "vegetarian": false,
       "vegan": true,
       "glutenFree": true,
       "dairyFree": true,

@@ -5,43 +5,51 @@ const allCheckbox = document.getElementById('all');
 //Arrays to use in the Filter function 
 let activeFilters = []
 //With dots so recipes array doesn't get modified 
-let workingArray = [...recipes]
-let exampleArray = []
+let workingArray = exampleResponse.recipes
+console.log(workingArray)
 
-const url = ""
 
-const fetchData = async () => {
-  const response = await fetch(URL)
-  const data = await response.json()
-  exampleArray = data.recipes
-}
+// const url = ""
+
+// const fetchData = async () => {
+//   const response = await fetch(URL)
+//   const data = await response.json()
+
+// }
 
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
-const renderIngredients = (ingredients) => {
-  return `<ul>
-  ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join('')}</ul>`
-}
+// const renderIngredients = (ingredients) => {
+//   return `<ul>
+//   ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join('')}</ul>`
+// }
+
+//En function som kollar om nått är true
+
+
 //Function that creates the recipe cards when the page loads
 const recipeContainer = document.getElementById('recipe-container')
 
-const loadRecipes = (obj) => {
+
+//Fixa ingridienser 
+const loadRecipes = (array) => {
+  console.log('loadRecipes kör')
   recipeContainer.innerHTML = ''
-  obj.recipes.forEach((recipe) => {
+  array.forEach((recipe) => {
     recipeContainer.innerHTML += `<article class="recipe-card">
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet: </strong> ${recipe.diets.join(" ")}</p>
+    <p><strong>Diet: </strong></p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
-    <p><strong>Ingredients</strong> ${renderIngredients(recipe.ingredients)}</p>
+    <p><strong>Ingredients</strong></p>
     </article>`
   })
 }
 
 //Här börjar allt från att sidan laddas 
-loadRecipes(exampleResponse)
+loadRecipes(workingArray)
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
@@ -70,6 +78,14 @@ const updateButtons = (id) => {
   }
 }
 
+/*Update filter:
+-Tar in en knapp 
+-kollar id
+- om id finns lägg till i activfilters array
+- om inte, ta bort
+
+*/
+
 const updateFilters = (button) => {
   if (button.id !== 'all') {
     if (button.checked) {
@@ -81,9 +97,11 @@ const updateFilters = (button) => {
     }
     //Om det finns nått i activeFilter betyder det att det är nått filter i listan som vi behöver filtrera på 
     if (activeFilters.length > 0) {
-      workingArray = recipes.filter(recipe => activeFilters.every(filter => recipe.diets.includes(filter)))
+      workingArray = workingArray.filter(recipe => activeFilters.every(filter => recipe[filter] === true)
+      )
+
     } else {
-      workingArray = [...recipes]
+      workingArray = exampleResponse.recipes
     }
     loadRecipes(workingArray)
   } else {
@@ -92,6 +110,31 @@ const updateFilters = (button) => {
     loadRecipes(recipes)
   }
 }
+
+//Test nya funktioner
+
+
+
+
+
+//Slut Test nya funktioner
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const sortAscending = (array) => {
   array.sort((a, b) => (
@@ -111,7 +154,7 @@ const randomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * workingArray.length)
   workingArray = [workingArray[randomIndex]]
   loadRecipes(workingArray)
-  workingArray = [...recipes]
+  workingArray = exampleResponse.recipes
 }
 
 
