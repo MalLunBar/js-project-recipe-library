@@ -38,11 +38,15 @@ const fetchData = async () => {
   }
 }
 
-fetchData()
+// fetchData()
 
 
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
+const renderIngredients = () {
+  
+}
+
 // const renderIngredients = (ingredients) => {
 //   return `<ul>
 //   ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join('')}</ul>`
@@ -64,7 +68,7 @@ const loadRecipes = (array) => {
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet: </strong></p>
+    <p><strong>Diet: </strong>${recipe.ana}</p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients</strong></p>
