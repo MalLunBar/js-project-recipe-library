@@ -7,15 +7,39 @@ let activeFilters = []
 //With dots so recipes array doesn't get modified 
 let workingArray = exampleResponse.recipes
 console.log(workingArray)
+const BASE_URL = "https://api.spoonacular.com/recipes/random"
+const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
+const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=20`
 
 
-// const url = ""
 
-// const fetchData = async () => {
-//   const response = await fetch(URL)
-//   const data = await response.json()
+const fetchData = async () => {
+  try {
+    const response = await fetch(URL)
 
-// }
+    if (!response.ok) {
+      throw new Error(`Error! Status: ${response.status}`)
+    }
+
+    const data = await response.json()
+    console.log('data', data)
+
+    const validRecipes = data.recipes.filter(recipe => {
+      return recipe.cuisines.length > 0 && recipe.image && recipe.title
+    })
+
+    console.log(validRecipes)
+
+    //render valid recipies in the DOM
+    //renderRecipes(validRecipes)
+
+  } catch (error) {
+    console.error('error:', error.message)
+  }
+}
+
+fetchData()
+
 
 
 // Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
