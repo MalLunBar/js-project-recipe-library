@@ -67,6 +67,21 @@ const renderIngredients = (array) => {
   </ul>`;
 };
 
+const renderDiets = (recipe) => {
+  const dietLabels = [
+    { key: "vegetarian", label: "Vegetarian" },
+    { key: "vegan", label: "Vegan" },
+    { key: "glutenFree", label: "Gluten-Free" },
+    { key: "dairyFree", label: "Dairy-Free" },
+  ];
+
+  const stringArray = dietLabels
+    .filter(({ key }) => recipe[key])  // Keep only the ones that are true
+    .map(({ label }) => label);        // Extract their labels
+
+  return stringArray.length ? stringArray.join(", ") : "No special diet";
+};
+
 
 
 const recipeContainer = document.getElementById('recipe-container')
@@ -80,7 +95,7 @@ const loadRecipes = (array) => {
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet: </strong></p>
+    <p><strong>Diet: </strong> ${renderDiets(recipe)}</p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
@@ -96,7 +111,7 @@ fetchData()
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
-  if (id === 'all') {
+  if (id === 'all' || id === 'lazy') {
     // If "All" is clicked, uncheck all other checkboxes
     filterButtons.forEach(btn => {
       if (btn.id !== 'all') {
@@ -197,6 +212,9 @@ sortButtons.forEach(button => {
   })
 })
 
-lazyButton.addEventListener('click', randomRecipe)
+lazyButton.addEventListener('click', () => {
+  updateButtons('lazy')
+  randomRecipe()
+})
 
 
