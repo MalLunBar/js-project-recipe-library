@@ -1,11 +1,12 @@
 const filterButtons = document.querySelectorAll('.filter-checkbox')
 const sortButtons = document.querySelectorAll('.sort-radio')
 const lazyButton = document.getElementById('lazy')
-const allCheckbox = document.getElementById('all');
+const allButton = document.getElementById('all');
 //Arrays to use in the Filter function 
 let activeFilters = []
 //With dots so recipes array doesn't get modified 
-let workingArray = exampleResponse.recipes
+let allRecipes = []
+let workingArray = []
 const BASE_URL = "https://api.spoonacular.com/recipes/random"
 const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
 const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=20`
@@ -23,16 +24,19 @@ const fetchData = async () => {
     const data = await response.json()
     console.log('data', data)
 
-    const validRecipes = data.recipes.filter(recipe => {
+    allRecipes = data.recipes.filter(recipe => {
       return recipe.cuisines.length > 0 && recipe.image && recipe.title
     })
+
+    workingArray = [...allRecipes]
 
 
     //render valid recipies in the DOM
     //renderRecipes(validRecipes)
-
+    loadRecipes(workingArray)
   } catch (error) {
     console.error('error:', error.message)
+    recipeContainer.innerHTML = "<p>Failed to load recipes. Please try again.</p>"
   }
 }
 
@@ -76,7 +80,7 @@ const loadRecipes = (array) => {
 }
 
 //Här börjar allt från att sidan laddas 
-loadRecipes(workingArray)
+
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
@@ -92,16 +96,16 @@ const updateButtons = (id) => {
     const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all')
 
     if (anyChecked) {
-      allCheckbox.checked = false
+      allButton.checked = false
 
     } else { // no filters active, check the "all-box"
-      allCheckbox.checked = true
+      allButton.checked = true
     }
   }
   // Ensure that "All" is checked if nothing else is 
   const anyCheckedNew = Array.from(filterButtons).some(btn => btn.checked)
   if (!anyCheckedNew) {
-    allCheckbox.checked = true
+    allButton.checked = true
   }
 }
 
@@ -121,7 +125,7 @@ const updateFilters = (button) => {
       )
 
     } else {
-      workingArray = exampleResponse.recipes
+      workingArray = [...allRecipes]
     }
     loadRecipes(workingArray)
   } else {
@@ -130,24 +134,6 @@ const updateFilters = (button) => {
     loadRecipes(recipes)
   }
 }
-
-//Test nya funktioner
-
-
-
-
-
-//Slut Test nya funktioner
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -174,7 +160,8 @@ const randomRecipe = () => {
   const randomIndex = Math.floor(Math.random() * workingArray.length)
   workingArray = [workingArray[randomIndex]]
   loadRecipes(workingArray)
-  workingArray = exampleResponse.recipes
+  workingArray = [...allRecipes]
+
 }
 
 
@@ -202,7 +189,3 @@ sortButtons.forEach(button => {
 lazyButton.addEventListener('click', randomRecipe)
 
 
-//Saker att ändra!! 
-/*
-1. Visst behöver jag aldrig skriva ut function(recipes) eftersom workingArray alltid är en kopia när den inte är filtrerad? 
-2. ändra namn på allCheckbox och använd den överallt där det behöver*/ 
