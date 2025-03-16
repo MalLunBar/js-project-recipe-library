@@ -91,7 +91,8 @@ const recipeContainer = document.getElementById('recipe-container')
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
   array.forEach((recipe) => {
-    recipeContainer.innerHTML += `<article class="recipe-card">
+    recipeContainer.innerHTML += `<a target="_blank" href=${recipe.sourceUrl}>
+    <article class="recipe-card">
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
@@ -99,7 +100,9 @@ const loadRecipes = (array) => {
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
-    </article>`
+    </article></a>`
+
+    
   })
 }
 
@@ -159,11 +162,6 @@ const updateFilters = (button) => {
 
   loadRecipes(workingArray);
 };
-
-
-
-
-
 
 
 
