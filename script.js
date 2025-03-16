@@ -6,7 +6,6 @@ const allCheckbox = document.getElementById('all');
 let activeFilters = []
 //With dots so recipes array doesn't get modified 
 let workingArray = exampleResponse.recipes
-console.log(workingArray)
 const BASE_URL = "https://api.spoonacular.com/recipes/random"
 const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
 const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=20`
@@ -28,7 +27,6 @@ const fetchData = async () => {
       return recipe.cuisines.length > 0 && recipe.image && recipe.title
     })
 
-    console.log(validRecipes)
 
     //render valid recipies in the DOM
     //renderRecipes(validRecipes)
@@ -42,36 +40,37 @@ const fetchData = async () => {
 
 
 
-// Function that renders through the ingredients array and creates a listelement for every ingredient for better readability
-const renderIngredients = () {
+// Function that renders through the ingredients array and creates a list-element for every ingredient for better readability
 
-}
+const renderIngredients = (array) => {
+  return `<ul>
+    ${array
+      .map(ingredient => {
+        const amount = ingredient.measures?.metric?.amount ? Math.ceil(ingredient.measures.metric.amount) : "?";
+        const unit = ingredient.measures?.metric?.unitShort || "";
+        return `<li>${amount} ${unit} ${ingredient.name}</li>`;
+      })
+      .join('')}
+  </ul>`;
+};
 
-// const renderIngredients = (ingredients) => {
-//   return `<ul>
-//   ${ingredients.map((ingredient) => `<li>${ingredient}</li>`).join('')}</ul>`
-// }
-
-//En function som kollar om nått är true
 
 
-//Function that creates the recipe cards when the page loads
 const recipeContainer = document.getElementById('recipe-container')
 
 
 //Fixa ingridienser 
 const loadRecipes = (array) => {
-  console.log('loadRecipes kör')
   recipeContainer.innerHTML = ''
   array.forEach((recipe) => {
     recipeContainer.innerHTML += `<article class="recipe-card">
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
-    <p><strong>Diet: </strong>${recipe.ana}</p>
+    <p><strong>Diet: </strong></p>
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
-    <p><strong>Ingredients</strong></p>
+    <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
     </article>`
   })
 }
@@ -106,13 +105,6 @@ const updateButtons = (id) => {
   }
 }
 
-/*Update filter:
--Tar in en knapp 
--kollar id
-- om id finns lägg till i activfilters array
-- om inte, ta bort
-
-*/
 
 const updateFilters = (button) => {
   if (button.id !== 'all') {
