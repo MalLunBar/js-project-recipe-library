@@ -9,38 +9,47 @@ let allRecipes = []
 let workingArray = []
 const BASE_URL = "https://api.spoonacular.com/recipes/random"
 const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
-const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=20`
+const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=50`
 
 
 
 const fetchData = async () => {
   try {
-    const response = await fetch(URL)
+    const storedRecipes = localStorage.getItem("recipes")
 
-    if (!response.ok) {
-      throw new Error(`Error! Status: ${response.status}`)
+
+    if (storedRecipes) {
+      console.log("using cached recipes...")
+      allRecipes = JSON.parse(storedRecipes)
+    } else {
+      console.log("Fetching new recipes...")
+      const response = await fetch(URL)
+
+      if (!response.ok) {
+        throw new Error(`Error! Status: ${response.status}`)
+      }
+
+      const data = await response.json()
+      console.log('data', data)
+
+      allRecipes = data.recipes.filter(recipe => {
+        return recipe.cuisines.length > 0 && recipe.image && recipe.title
+      })
+
+      localStorage.setItem("recipes", JSON.stringify(allRecipes))
     }
 
-    const data = await response.json()
-    console.log('data', data)
-
-    allRecipes = data.recipes.filter(recipe => {
-      return recipe.cuisines.length > 0 && recipe.image && recipe.title
-    })
-
     workingArray = [...allRecipes]
-
-
-    //render valid recipies in the DOM
-    //renderRecipes(validRecipes)
+    //render valid recipes in the DOM 
     loadRecipes(workingArray)
+
   } catch (error) {
     console.error('error:', error.message)
     recipeContainer.innerHTML = "<p>Failed to load recipes. Please try again.</p>"
   }
 }
 
-// fetchData()
+
 
 
 
@@ -80,6 +89,9 @@ const loadRecipes = (array) => {
 }
 
 //Här börjar allt från att sidan laddas 
+fetchData()
+
+
 
 
 // Handles the button logic, which one should be checked depending on what else is checked
@@ -111,29 +123,28 @@ const updateButtons = (id) => {
 
 
 const updateFilters = (button) => {
-  if (button.id !== 'all') {
+  if (button.id === 'all') {
+    // Reset everything when "all" is clicked
+    activeFilters = [];
+    workingArray = [...allRecipes];
+  } else {
     if (button.checked) {
       if (!activeFilters.includes(button.id)) {
-        activeFilters.push(button.id)
+        activeFilters.push(button.id);
       }
     } else {
-      activeFilters = activeFilters.filter(filter => filter !== button.id)
+      activeFilters = activeFilters.filter(filter => filter !== button.id);
     }
-    //Om det finns nått i activeFilter betyder det att det är nått filter i listan som vi behöver filtrera på 
-    if (activeFilters.length > 0) {
-      workingArray = workingArray.filter(recipe => activeFilters.every(filter => recipe[filter] === true)
-      )
 
-    } else {
-      workingArray = [...allRecipes]
-    }
-    loadRecipes(workingArray)
-  } else {
-    //resets everything when "all" is clicked
-    activeFilters = []
-    loadRecipes(recipes)
+    // If there are active filters, apply filtering; otherwise, reset workingArray
+    workingArray = activeFilters.length > 0
+      ? workingArray.filter(recipe => activeFilters.every(filter => recipe[filter] === true))
+      : [...allRecipes];
   }
-}
+
+  loadRecipes(workingArray);
+};
+
 
 
 
