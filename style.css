@@ -156,6 +156,34 @@ a {
   padding: 0;
 }
 
+.testcont {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
+.btn {
+  position: absolute;
+  z-index: 2;
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: lightgray;
+
+
+}
+
+
+.btn i:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 650px) {
 
   body {

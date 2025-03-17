@@ -91,8 +91,11 @@ const recipeContainer = document.getElementById('recipe-container')
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
   array.forEach((recipe) => {
-    recipeContainer.innerHTML += `<a target="_blank" href=${recipe.sourceUrl}>
+    recipeContainer.innerHTML += `
     <article class="recipe-card">
+
+    <div class="testcont"><button class="btn"><i class="fa-solid fa-heart"></i></button></div>
+    
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
     <div class="border-top-bottom">
@@ -100,9 +103,9 @@ const loadRecipes = (array) => {
     <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
     </div>
     <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
-    </article></a>`
+    </article>`
 
-    
+
   })
 }
 
@@ -192,6 +195,18 @@ const randomRecipe = () => {
 
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 
+let heart = document.getElementById("btns")
+
+const toggleHeart = () => {
+  if (heart.style.color === "red") {
+    heart.style.color = "lightgray"
+  } else {
+    heart.style.color = "red"
+  }
+}
+
+heart.addEventListener('click', toggleHeart)
+
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
     updateButtons(button.id)
@@ -211,7 +226,7 @@ sortButtons.forEach(button => {
 })
 
 lazyButton.addEventListener('click', () => {
-  updateButtons('lazy')
+  updateButtons(lazyButton.id)
   randomRecipe()
 })
 
