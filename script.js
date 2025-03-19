@@ -12,11 +12,9 @@ const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
 const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=50`
 
 
-
 const fetchData = async () => {
   try {
     const storedRecipes = localStorage.getItem("recipes")
-
 
     if (storedRecipes) {
       console.log("using cached recipes...")
@@ -49,10 +47,6 @@ const fetchData = async () => {
   }
 }
 
-
-
-
-
 // Function that renders through the ingredients array and creates a list-element for every ingredient for better readability
 
 const renderIngredients = (array) => {
@@ -82,10 +76,7 @@ const renderDiets = (recipe) => {
   return stringArray.length ? stringArray.join(", ") : "No special diet";
 };
 
-
-
 const recipeContainer = document.getElementById('recipe-container')
-
 
 //Fixa ingridienser 
 const loadRecipes = (array) => {
@@ -104,16 +95,11 @@ const loadRecipes = (array) => {
     </div>
     <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
     </article>`
-
-
   })
 }
 
 //Här börjar allt från att sidan laddas 
 fetchData()
-
-
-
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
@@ -166,9 +152,6 @@ const updateFilters = (button) => {
   loadRecipes(workingArray);
 };
 
-
-
-
 const sortAscending = (array) => {
   array.sort((a, b) => (
     a.readyInMinutes > b.readyInMinutes ? 1 : b.readyInMinutes > a.readyInMinutes ? -1 : 0
@@ -188,13 +171,9 @@ const randomRecipe = () => {
   workingArray = [workingArray[randomIndex]]
   loadRecipes(workingArray)
   workingArray = [...allRecipes]
-
 }
 
-
-
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
-
 let heart = document.getElementById("btns")
 
 const toggleHeart = () => {
@@ -205,7 +184,7 @@ const toggleHeart = () => {
   }
 }
 
-heart.addEventListener('click', toggleHeart)
+// heart.addEventListener('click', toggleHeart)
 
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
@@ -213,7 +192,6 @@ filterButtons.forEach(button => {
     updateFilters(button)
   })
 })
-
 
 sortButtons.forEach(button => {
   button.addEventListener('click', () => {
