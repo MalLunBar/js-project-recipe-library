@@ -22,7 +22,6 @@ h1 {
   font-size: 20px;
   font-weight: 700;
   padding: 10px 0;
-
 }
 
 .filter-group,
@@ -31,7 +30,6 @@ h1 {
 .lazy-container {
   display: flex;
   flex-direction: column;
-
 }
 
 .filter-options,
@@ -40,7 +38,6 @@ h1 {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-
 }
 
 .filter-options label,
@@ -162,8 +159,6 @@ a {
   justify-content: flex-end;
 }
 
-
-
 .btn {
   position: absolute;
   z-index: 2;
@@ -175,10 +170,7 @@ a {
   border: none;
   outline: none;
   color: lightgray;
-
-
 }
-
 
 .btn i:hover {
   cursor: pointer;
@@ -193,16 +185,12 @@ a {
   .filter-group {
     flex-direction: row;
     gap: 10px;
-
-
   }
 
   .filter-container,
   .sort-container,
   .lazy-container {
     min-width: 220px;
-
-
   }
 
   .sort-options {
