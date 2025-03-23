@@ -1,10 +1,9 @@
-const filterButtons = document.querySelectorAll('.filter-checkbox')
-const sortButtons = document.querySelectorAll('.sort-radio')
-const lazyButton = document.getElementById('lazy')
-const allButton = document.getElementById('all');
+const filterButtons = document.querySelectorAll(".filter-checkbox")
+const sortButtons = document.querySelectorAll(".sort-radio")
+const lazyButton = document.getElementById("lazy")
+const allButton = document.getElementById("all");
 //Arrays to use in the Filter function 
 let activeFilters = []
-//With dots so recipes array doesn't get modified 
 let allRecipes = []
 let workingArray = []
 const BASE_URL = "https://api.spoonacular.com/recipes/random"
@@ -28,7 +27,7 @@ const fetchData = async () => {
       }
 
       const data = await response.json()
-      console.log('data', data)
+      console.log("data", data)
 
       allRecipes = data.recipes.filter(recipe => {
         return recipe.cuisines.length > 0 && recipe.image && recipe.title
@@ -42,7 +41,7 @@ const fetchData = async () => {
     loadRecipes(workingArray)
 
   } catch (error) {
-    console.error('error:', error.message)
+    console.error("error: ", error.message)
     recipeContainer.innerHTML = "<p>Failed to load recipes. Please try again.</p>"
   }
 }
@@ -57,7 +56,7 @@ const renderIngredients = (array) => {
         const unit = ingredient.measures?.metric?.unitShort || "";
         return `<li>${amount} ${unit} ${ingredient.name}</li>`;
       })
-      .join('')}
+      .join("")}
   </ul>`;
 };
 
@@ -76,9 +75,8 @@ const renderDiets = (recipe) => {
   return stringArray.length ? stringArray.join(", ") : "No special diet";
 };
 
-const recipeContainer = document.getElementById('recipe-container')
+const recipeContainer = document.getElementById("recipe-container")
 
-//Fixa ingridienser 
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
   array.forEach((recipe) => {
@@ -98,21 +96,21 @@ const loadRecipes = (array) => {
   })
 }
 
-//Här börjar allt från att sidan laddas 
+//Fetch data from the API when the page loads
 fetchData()
 
 // Handles the button logic, which one should be checked depending on what else is checked
 const updateButtons = (id) => {
-  if (id === 'all' || id === 'lazy') {
+  if (id === "all" || id === "lazy") {
     // If "All" is clicked, uncheck all other checkboxes
     filterButtons.forEach(btn => {
-      if (btn.id !== 'all') {
+      if (btn.id !== "all") {
         btn.checked = false
       }
     })
   } else {// any other button was clicked
     // Check if any (non-all) boxes are checked
-    const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== 'all')
+    const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== "all")
 
     if (anyChecked) {
       allButton.checked = false
@@ -128,9 +126,8 @@ const updateButtons = (id) => {
   }
 }
 
-
 const updateFilters = (button) => {
-  if (button.id === 'all') {
+  if (button.id === "all") {
     // Reset everything when "all" is clicked
     activeFilters = [];
     workingArray = [...allRecipes];
@@ -173,6 +170,7 @@ const randomRecipe = () => {
   workingArray = [...allRecipes]
 }
 
+
 //Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
 let heart = document.getElementById("btns")
 
@@ -187,15 +185,15 @@ const toggleHeart = () => {
 // heart.addEventListener('click', toggleHeart)
 
 filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
+  button.addEventListener("click", () => {
     updateButtons(button.id)
     updateFilters(button)
   })
 })
 
 sortButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    if (button.id === 'ascending') {
+  button.addEventListener("click", () => {
+    if (button.id === "ascending") {
       sortAscending(workingArray)
     } else {
       sortDescending(workingArray)
@@ -203,7 +201,7 @@ sortButtons.forEach(button => {
   })
 })
 
-lazyButton.addEventListener('click', () => {
+lazyButton.addEventListener("click", () => {
   updateButtons(lazyButton.id)
   randomRecipe()
 })
