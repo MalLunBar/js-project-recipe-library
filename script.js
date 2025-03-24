@@ -16,18 +16,21 @@ const fetchData = async () => {
     const storedRecipes = localStorage.getItem("recipes")
 
     if (storedRecipes) {
-      console.log("using cached recipes...")
+
       allRecipes = JSON.parse(storedRecipes)
     } else {
-      console.log("Fetching new recipes...")
+
       const response = await fetch(URL)
 
       if (!response.ok) {
-        throw new Error(`Error! Status: ${response.status}`)
+        if (response.status === 402) {
+          throw new Error("The API quota is reached. Please try again tomorrow")
+        } else {
+          throw new Error(`Error! Status: ${response.status}`)
+        }
       }
 
       const data = await response.json()
-      console.log("data", data)
 
       allRecipes = data.recipes.filter(recipe => {
         return recipe.cuisines.length > 0 && recipe.image && recipe.title
@@ -42,7 +45,7 @@ const fetchData = async () => {
 
   } catch (error) {
     console.error("error: ", error.message)
-    recipeContainer.innerHTML = "<p>Failed to load recipes. Please try again.</p>"
+    recipeContainer.innerHTML = `<p>${error.message}</p>`
   }
 }
 
@@ -79,6 +82,7 @@ const recipeContainer = document.getElementById("recipe-container")
 
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
+
   array.forEach((recipe) => {
     recipeContainer.innerHTML += `
     <article class="recipe-card">
