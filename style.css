@@ -153,13 +153,13 @@ a {
   padding: 0;
 }
 
-.testcont {
+.heart-container {
   width: 100%;
   display: flex;
   justify-content: flex-end;
 }
 
-.btn {
+.fav-btn {
   position: absolute;
   z-index: 2;
   font-size: 30px;
@@ -172,7 +172,7 @@ a {
   color: lightgray;
 }
 
-.btn i:hover {
+.fav-btn i:hover {
   cursor: pointer;
 }
 

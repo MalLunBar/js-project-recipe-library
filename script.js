@@ -8,7 +8,7 @@ let allRecipes = []
 let workingArray = []
 const BASE_URL = "https://api.spoonacular.com/recipes/random"
 const API_KEY = "f0139a3417dd49cb861c8c92b5ee8a47"
-const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=50`
+const URL = `${BASE_URL}/?apiKey=${API_KEY}&number=100`
 
 
 const fetchData = async () => {
@@ -83,11 +83,12 @@ const recipeContainer = document.getElementById("recipe-container")
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
 
+
   array.forEach((recipe) => {
     recipeContainer.innerHTML += `
     <article class="recipe-card">
 
-    <div class="testcont"><button class="btn"><i class="fa-solid fa-heart"></i></button></div>
+    <div class="heart-container"><button class="fav-btn"><i class="fa-solid fa-heart"></i></button></div>
     
     <img src="${recipe.image}" alt="${recipe.title}">
     <h3>${recipe.title}</h3>
