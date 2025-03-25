@@ -2,6 +2,7 @@ const filterButtons = document.querySelectorAll(".filter-checkbox")
 const sortButtons = document.querySelectorAll(".sort-radio")
 const lazyButton = document.getElementById("lazy")
 const allButton = document.getElementById("all");
+// const arrowButtons = document.querySelectorAll(".arrow-btn")
 //Arrays to use in the Filter function 
 let activeFilters = []
 let allRecipes = []
@@ -78,6 +79,18 @@ const renderDiets = (recipe) => {
   return stringArray.length ? stringArray.join(", ") : "No special diet";
 };
 
+const renderInstructions = (array) => {
+  if (!array || array.length === 0) {
+    return "No instructions available.";
+  }
+  const steps = array[0].steps;
+  return `<ol>${steps.map(step => `<li>${step.step}</li>`).join("")}</ol>`;
+};
+
+
+
+
+
 const recipeContainer = document.getElementById("recipe-container")
 
 const loadRecipes = (array) => {
@@ -87,18 +100,26 @@ const loadRecipes = (array) => {
   array.forEach((recipe) => {
     recipeContainer.innerHTML += `
     <article class="recipe-card">
+      
+      <img src="${recipe.image}" alt="${recipe.title}">
+      <h3>${recipe.title}</h3>
+      <div class="border-top-bottom">
+      <p><strong>Diet: </strong> ${renderDiets(recipe)}</p>
+      <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+      </div>
+      <div class="lower-container">
+      <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
+      
+      <button class="arrow-btn">
+        <p><strong>Instructions</strong></p>
+        <img src="./images/arrow.svg" alt="arrow">
+      </button>
+      <div class="instructions" style="display: none;"><strong>Instructions:</strong> ${renderInstructions(recipe.analyzedInstructions)}</div>
+      </div>
+    </article>`;
 
-    <div class="heart-container"><button class="fav-btn"><i class="fa-solid fa-heart"></i></button></div>
-    
-    <img src="${recipe.image}" alt="${recipe.title}">
-    <h3>${recipe.title}</h3>
-    <div class="border-top-bottom">
-    <p><strong>Diet: </strong> ${renderDiets(recipe)}</p>
-    <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
-    </div>
-    <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
-    </article>`
   })
+
 }
 
 //Fetch data from the API when the page loads
@@ -210,5 +231,27 @@ lazyButton.addEventListener("click", () => {
   updateButtons(lazyButton.id)
   randomRecipe()
 })
+
+// document.querySelectorAll(".arrow-btn").forEach((btn) => {
+//   btn.addEventListener('click', () => {
+//     const instructionContainer = btn.nextElementSibling
+//     const isVisible = instructionContainer.style.display === "block"
+//     instructionContainer.style.display = isVisible ? "none" : "block"
+
+
+//   })
+// })
+document.addEventListener("click", (event) => {
+  if (event.target.closest(".arrow-btn")) {
+    const btn = event.target.closest(".arrow-btn");
+    const instructionContainer = btn.nextElementSibling;
+    const isVisible = instructionContainer.style.display === "block";
+    instructionContainer.style.display = isVisible ? "none" : "block";
+  }
+});
+
+
+
+
 
 

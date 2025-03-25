@@ -127,6 +127,8 @@ a {
 }
 
 .recipe-card {
+  display: flex;
+  flex-direction: column;
   background: white;
   border: 2px solid white;
   border-radius: 12px;
@@ -153,27 +155,42 @@ a {
   padding: 0;
 }
 
-.heart-container {
-  width: 100%;
+.lower-container {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
-.fav-btn {
-  position: absolute;
-  z-index: 2;
-  font-size: 30px;
-  width: 30px;
-  height: 30px;
-  margin: 10px;
+.arrow-btn {
+  width: 100%;
+  margin-top: 10px;
   background: transparent;
   border: none;
-  outline: none;
-  color: lightgray;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
 }
 
-.fav-btn i:hover {
-  cursor: pointer;
+.arrow-btn img {
+  height: 30px;
+  width: 30px;
+}
+
+.instructions {
+  background: rgb(250, 225, 237);
+  max-width: 400px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.instructions ol {
+  list-style-position: inside;
+  padding-left: 0;
 }
 
 @media (min-width: 650px) {
