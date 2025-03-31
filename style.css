@@ -118,7 +118,6 @@ h1 {
 
 .temp {
   max-width: 300px;
-
 }
 
 a {
@@ -187,6 +186,7 @@ a {
   max-width: 400px;
   margin: 10px;
   padding: 10px;
+  
 }
 
 .instructions ol {

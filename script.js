@@ -104,17 +104,17 @@ const loadRecipes = (array) => {
       <img src="${recipe.image}" alt="${recipe.title}">
       <h3>${recipe.title}</h3>
       <div class="border-top-bottom">
-      <p><strong>Diet: </strong> ${renderDiets(recipe)}</p>
-      <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
+        <p><strong>Diet: </strong> ${renderDiets(recipe)}</p>
+        <p><strong>Ready in:</strong> ${recipe.readyInMinutes} minutes</p>
       </div>
       <div class="lower-container">
-      <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
+        <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
       
-      <button class="arrow-btn">
-        <p><strong>Instructions</strong></p>
-        <img src="./images/arrow.svg" alt="arrow">
-      </button>
-      <div class="instructions" style="display: none;"><strong>Instructions:</strong> ${renderInstructions(recipe.analyzedInstructions)}</div>
+        <button class="arrow-btn">
+          <p><strong>Instructions</strong></p>
+          <img src="./images/arrow.svg" alt="arrow">
+        </button>
+        <div class="instructions" style="display: none;"><strong>Instructions:</strong> ${renderInstructions(recipe.analyzedInstructions)}</div>
       </div>
     </article>`;
 
