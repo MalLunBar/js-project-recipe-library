@@ -88,14 +88,14 @@ const renderInstructions = (array) => {
 };
 
 
-
-
-
 const recipeContainer = document.getElementById("recipe-container")
 
 const loadRecipes = (array) => {
   recipeContainer.innerHTML = ''
-
+  if (array.length === 0) {
+    recipeContainer.innerHTML = '<p class="empty-state">No recipes found. Try adjusting your filters. </p>'
+    return
+  }
 
   array.forEach((recipe) => {
     recipeContainer.innerHTML += `
@@ -136,19 +136,8 @@ const updateButtons = (id) => {
     })
   } else {// any other button was clicked
     // Check if any (non-all) boxes are checked
-    const anyChecked = Array.from(filterButtons).some(btn => btn.checked && btn.id !== "all")
-
-    if (anyChecked) {
-      allButton.checked = false
-
-    } else { // no filters active, check the "all-box"
-      allButton.checked = true
-    }
-  }
-  // Ensure that "All" is checked if nothing else is 
-  const anyCheckedNew = Array.from(filterButtons).some(btn => btn.checked)
-  if (!anyCheckedNew) {
-    allButton.checked = true
+    const anyFiltersActive = Array.from(filterButtons).some(btn => btn.checked && btn.id !== "all")
+    allButton.checked = !anyFiltersActive
   }
 }
 
@@ -197,19 +186,6 @@ const randomRecipe = () => {
 }
 
 
-//Eventlistener on classnames to see which one was clikced. Return the id of the clicked button
-let heart = document.getElementById("btns")
-
-const toggleHeart = () => {
-  if (heart.style.color === "red") {
-    heart.style.color = "lightgray"
-  } else {
-    heart.style.color = "red"
-  }
-}
-
-// heart.addEventListener('click', toggleHeart)
-
 filterButtons.forEach(button => {
   button.addEventListener("click", () => {
     updateButtons(button.id)
@@ -232,15 +208,7 @@ lazyButton.addEventListener("click", () => {
   randomRecipe()
 })
 
-// document.querySelectorAll(".arrow-btn").forEach((btn) => {
-//   btn.addEventListener('click', () => {
-//     const instructionContainer = btn.nextElementSibling
-//     const isVisible = instructionContainer.style.display === "block"
-//     instructionContainer.style.display = isVisible ? "none" : "block"
 
-
-//   })
-// })
 document.addEventListener("click", (event) => {
   if (event.target.closest(".arrow-btn")) {
     const btn = event.target.closest(".arrow-btn");
