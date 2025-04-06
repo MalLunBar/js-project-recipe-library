@@ -109,11 +109,12 @@ const loadRecipes = (array) => {
       </div>
       <div class="lower-container">
         <p><strong>Ingredients: </strong>${renderIngredients(recipe.extendedIngredients)}</p>
-      
-        <button class="arrow-btn">
-          <p><strong>Instructions</strong></p>
-          <img src="./images/arrow.svg" alt="arrow">
-        </button>
+        <div class="arrow-btn-container">
+          <button class="arrow-btn">
+            <p><strong>Instructions</strong></p>
+            <img src="./images/arrow.svg" alt="arrow">
+          </button>
+        </div>
         <div class="instructions" style="display: none;"><strong>Instructions:</strong> ${renderInstructions(recipe.analyzedInstructions)}</div>
       </div>
     </article>`;
@@ -212,7 +213,8 @@ lazyButton.addEventListener("click", () => {
 document.addEventListener("click", (event) => {
   if (event.target.closest(".arrow-btn")) {
     const btn = event.target.closest(".arrow-btn");
-    const instructionContainer = btn.nextElementSibling;
+    const card = btn.closest(".recipe-card");
+    const instructionContainer = card.querySelector(".instructions");
     const isVisible = instructionContainer.style.display === "block";
     instructionContainer.style.display = isVisible ? "none" : "block";
   }
